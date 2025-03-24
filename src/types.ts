@@ -16,6 +16,7 @@ type TodoTableProps = {
   removeTodo: () => void;
   columnDefs: ColDef<Todo>[];
   gridRef: RefObject<AgGridReact<Todo> | null>;
+  removeAllTodos: () => void;
 }
 
 export type {

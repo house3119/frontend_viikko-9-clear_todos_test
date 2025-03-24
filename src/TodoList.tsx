@@ -22,7 +22,7 @@ function TodoList() {
   const gridRef = useRef<AgGridReact<Todo>>(null);
 
   const [todo, setTodo] = useState<Todo>({ description: '', date: null, priority: '', id: 0 });
-  const [todos, setTodos] = useState<Todo[]>(exampelData);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   // Columnd definitions for AG Grid
   const [columnDefs] = useState<ColDef<Todo>[]>([
@@ -88,6 +88,10 @@ function TodoList() {
     setTodo({ ...todo, date: date});
   }
 
+  const handleDeleteAll = () => {
+    setTodos([]);
+  }
+
   return (
     <>
       <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" mt={2}>
@@ -106,9 +110,9 @@ function TodoList() {
             label="Priority"
             onChange={(event) => setTodo({ ...todo, priority: event.target.value })}
           >
-            <MenuItem value={"High"}>High</MenuItem>
-            <MenuItem value={"Medium"}>Medium</MenuItem>
-            <MenuItem value={"Low"}>Low</MenuItem>
+            <MenuItem value={"High"} aria-label={"High"}>High</MenuItem>
+            <MenuItem value={"Medium"} aria-label={"Medium"}>Medium</MenuItem>
+            <MenuItem value={"Low"} aria-label={"Low"}>Low</MenuItem>
           </Select>
         </FormControl>
 
@@ -126,8 +130,8 @@ function TodoList() {
         todos={todos}
         removeTodo={handleDelete}
         columnDefs={columnDefs}
-        gridRef={gridRef}/>
-      
+        gridRef={gridRef}
+        removeAllTodos={handleDeleteAll}/>
     </>
   );
 }

@@ -4,7 +4,7 @@ import Button from "@mui/material/Button"
 import Stack from "@mui/material/Stack";
 
 
-const TodoTable = ({ todos, removeTodo, columnDefs, gridRef }: TodoTableProps) => {
+const TodoTable = ({ todos, removeTodo, columnDefs, gridRef, removeAllTodos }: TodoTableProps) => {
   return (
     <div className="ag-theme-material ag-grid-custom">
       <AgGridReact
@@ -12,11 +12,15 @@ const TodoTable = ({ todos, removeTodo, columnDefs, gridRef }: TodoTableProps) =
         ref={gridRef} 
         rowData={todos.map(todo => todo)}
         rowSelection="single"
+        suppressColumnVirtualisation={true}
       />
 
       <Stack direction="row" spacing={2} justifyContent="left" alignItems="center" mt={2}>
         <Button onClick={removeTodo} variant="contained" color="error">
           Delete Selected
+        </Button>
+        <Button onClick={removeAllTodos} variant="contained" color="warning">
+          Clear
         </Button>
       </Stack>
     </div>
